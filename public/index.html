@@ -1,0 +1,55 @@
+<html ng-app='BookList'>
+  <head>
+    <title>Book List</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="style/style.css">
+  </head>
+  <body>
+    <div class="container" ng-view >
+        <div class="wrapper">
+            <div ng-repeat="book in vm.booksArr">
+                <form class="row"  >
+                    <fieldset ng-disabled="vm.editFlg !== $index">
+                        <div class="form-group col-md-4">
+                            <label for="bookTitle">Book Name</label>
+                            <input type="text" class="form-control" id="bookTitle" value={{book.title|BookListFilter}}>
+                            <h5 ng-show="book.title == ''" class="required">* Title is required</h5>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="bookDate">Book Published</label>
+                            <input type="date" class="form-control" id="bookDate" value={{book.date}} ng-model="book.date" >
+                            <h5 ng-show="book.date.$error.date" class="required">* Date is required</h5>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="bookAuthor">Book Author</label>
+                            <input type="text" class="form-control" id="bookAuthor"  value={{book.author|BookListFilter}}>
+                            <h5 ng-show="book.author == ''" class="required">* Author is required</h5>
+                        </div>
+                    </fieldset>
+                    <div class="form-group col-md-1">
+                    <input type="button"
+                           class="btn btn-primary"
+                           value="Edit"
+                           ng-click="vm.editable($index)">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <input type="button"
+                               class="btn btn-danger"
+                               value="Delete"
+                               ng-click="vm.delete(book.title,$index)">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap.min.js"></script>
+  <script src="src/app.module.js"></script>
+  <script src='src/app.controller.js'></script>
+  <script src='src/app.route.js'></script>
+  <script src='src/app.factory.js'></script>
+  <script src='src/app.filter.js'></script>
+</html>
+
